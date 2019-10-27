@@ -6,9 +6,20 @@ import {
   Dimensions,
   TextInput,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 
-import {Button} from 'native-base';
+import Modal from 'react-native-modal';
+
+import SwitchSelector from 'react-native-switch-selector';
+
+const options = [
+  {label: 'සිංහල', value: '1'},
+  {label: 'English', value: '1.5'},
+  {label: 'தமிழ்', value: '2'},
+];
+
+import {Button, Col} from 'native-base';
 
 import MapView from 'react-native-maps';
 
@@ -19,6 +30,13 @@ const {width, height} = Dimensions.get('window');
 const fontSize = Dimensions.get('window').fontScale;
 
 export default class HomeScreen extends Component {
+  state = {
+    isModelVisible: false,
+  };
+
+  toggleModal = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -32,21 +50,15 @@ export default class HomeScreen extends Component {
           }}
           showsUserLocation={true}
         />
-        <View
-          style={{
-            marginTop: 11,
-            flexDirection: 'column',
-            position: 'absolute',
-            width: '90%',
-            zIndex: 10000,
-            alignSelf: 'center',
-            top: '40%',
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            alignItems: 'center',
-            // padding: 20,
-            paddingVertical: 10,
-            borderRadius: 20,
-          }}>
+        <SwitchSelector
+          options={options}
+          initial={0}
+          onPress={value => console.log(`Call onPress with value: ${value}`)}
+          style={styles.switchSelector}
+          buttonColor={'#1B9CFC'}
+        />
+
+        <View style={styles.opacityBox}>
           <View style={styles.inputView}>
             <Icon
               style={{paddingHorizontal: 20}}
@@ -56,15 +68,9 @@ export default class HomeScreen extends Component {
             />
             <TextInput
               placeholder="Mobile Number"
-              placeholderTextColor="#444"
+              placeholderTextColor="#aaa"
               keyboardType="number-pad"
-              style={{
-                fontSize: 25,
-                backgroundColor: '#fff',
-                paddingLeft: 20,
-                // borderRadius: 100,
-                width: '100%',
-              }}
+              style={styles.InputField}
             />
           </View>
           <View style={styles.inputView}>
@@ -76,34 +82,87 @@ export default class HomeScreen extends Component {
             />
             <TextInput
               placeholder="PIN Number"
-              placeholderTextColor="#444"
+              placeholderTextColor="#aaa"
               keyboardType="number-pad"
               secureTextEntry={true}
-              style={{
-                fontSize: 25,
-                backgroundColor: '#fff',
-                paddingLeft: 20,
-                // borderRadius: 100,
-                width: '100%',
-              }}
+              style={styles.InputPin}
             />
           </View>
 
-          <Button
-            style={{
-              justifyContent: 'center',
-              backgroundColor: '#1B9CFC',
-              alignSelf: 'center',
-              marginVertical: 20,
-              width: '80%',
-              borderRadius: 20,
-            }}>
-            <Text style={{fontSize: 25, fontWeight: 'bold', color: '#fff'}}>
-              FIND NOW
-            </Text>
+          <Button onPress={this.toggleModal} style={styles.findButton}>
+            <Text style={styles.findButtonText}>FIND NOW</Text>
           </Button>
         </View>
-        <View style={styles.mapView}></View>
+        <Modal
+          backdropOpacity={0.4}
+          onBackdropPress={this.toggleModal}
+          style={styles.bottomModal}
+          isVisible={this.state.isModalVisible}>
+          <View
+            style={{
+              height: height / 6,
+              backgroundColor: '#fff',
+              // borderRadius: 12,
+              padding: 20,
+            }}>
+            <View
+              style={{
+                flex: 1,
+                width: '100%',
+                // backgroundColor: 'red',
+                flexDirection: 'row',
+              }}>
+              <Col style={{flex: 2}}>
+                <View
+                  style={[styles.preBorderImg, {backgroundColor: '#0984e3'}]}>
+                  <View style={styles.profilePic}>
+                    <Image
+                      style={styles.profilePicImg}
+                      source={require('../../Assets/profilepicOne.jpg')}
+                    />
+                  </View>
+                </View>
+              </Col>
+              <Col style={{flex: 5}}>
+                <View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={styles.reqText}>Wishvantha Perera</Text>
+                    <Text style={{color: '#aaa'}}>0 seconds ago</Text>
+                  </View>
+                  <Text style={{fontSize: 14, color: '#aaa'}}>
+                    57A, 1/1 Kirulupana Station Road, 3rd Ln, Nugegoda 11222
+                  </Text>
+                  <Text style={{fontSize: 17, fontWeight: 'bold'}}>
+                    0771234567
+                  </Text>
+                </View>
+              </Col>
+            </View>
+            {/* <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                width: '100%',
+                height: 50,
+                flex: 1,
+                // backgroundColor: 'red',
+              }}>
+              <Button style={styles.modelButton}>
+                <Text style={styles.modelButtonText}>Request</Text>
+              </Button>
+              <Button
+                onPress={this.toggleModal}
+                style={[styles.modelButton, {backgroundColor: '#636e72'}]}>
+                <Text style={styles.modelButtonText}>Cancel</Text>
+              </Button>
+            </View> */}
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -130,5 +189,99 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '80%',
     // paddingLeft: 20,
+  },
+  opacityBox: {
+    marginTop: 11,
+    flexDirection: 'column',
+    position: 'absolute',
+    width: '90%',
+    zIndex: 10000,
+    alignSelf: 'center',
+    top: '35%',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    alignItems: 'center',
+    // padding: 20,
+    paddingVertical: 10,
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+  InputField: {
+    fontSize: 25,
+    backgroundColor: '#fff',
+    paddingLeft: 20,
+    // borderRadius: 100,
+    width: '100%',
+  },
+  InputPin: {
+    fontSize: 25,
+    backgroundColor: '#fff',
+    paddingLeft: 20,
+    // borderRadius: 100,
+    width: '100%',
+  },
+  findButton: {
+    justifyContent: 'center',
+    backgroundColor: '#1B9CFC',
+    alignSelf: 'center',
+    marginVertical: 20,
+    width: '80%',
+    borderRadius: 20,
+  },
+  findButtonText: {fontSize: 25, fontWeight: 'bold', color: '#fff'},
+  switchSelector: {
+    position: 'absolute',
+    zIndex: 20,
+    margin: 20,
+    top: 30,
+    elevation: 1,
+  },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modelButton: {
+    backgroundColor: '#00b894',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    flex: 1,
+    justifyContent: 'center',
+    marginHorizontal: 10,
+  },
+  modelButtonText: {
+    color: '#fff',
+    fontSize: 22,
+    alignSelf: 'center',
+  },
+  reqText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  tag: {
+    width: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    marginTop: 5,
+    marginLeft: 5,
+  },
+  preBorderImg: {
+    height: 90,
+    width: 90,
+    borderRadius: 100,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profilePic: {
+    backgroundColor: '#fff',
+    width: '90%',
+    height: '90%',
+    borderRadius: 100,
+    overflow: 'hidden',
+  },
+  profilePicImg: {
+    resizeMode: 'contain',
+    width: '100%',
+    height: '110%',
   },
 });

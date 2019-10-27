@@ -48,7 +48,7 @@ export default createMaterialBottomTabNavigator(
   },
 
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'FriendSreen',
     activeColor: '#fff',
     inactiveColor: '#333',
     tintColor: 'red',
@@ -56,8 +56,8 @@ export default createMaterialBottomTabNavigator(
     shifting: true,
     barStyle: {
       backgroundColor: '#1B9CFC',
-      height: 80,
-      paddingTop: 15,
+      height: 70,
+      paddingTop: 10,
     },
   },
 );
