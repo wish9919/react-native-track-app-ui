@@ -232,8 +232,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 20,
     margin: 20,
-    top: 30,
+    top: 10,
+    right: 5,
     elevation: 1,
+    width: '50%',
   },
   bottomModal: {
     justifyContent: 'flex-end',

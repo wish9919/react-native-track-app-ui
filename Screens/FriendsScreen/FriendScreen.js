@@ -9,40 +9,106 @@ import {
   Image,
   TouchableNativeFeedback,
   Dimensions,
+  TextInput,
 } from 'react-native';
 import Header from '../../Components/Header';
 
 import Modal from 'react-native-modal';
+import AddFriendModal from './AddFriendModal';
 
 const {width, height} = Dimensions.get('window');
+const PrimaryColor = '#0984e3';
 
 import {Col, Row, Button} from 'native-base';
+import Icons from 'react-native-vector-icons/FontAwesome5';
+
+import PrimaryButton from '../../Components/PrimaryButton';
+
+import CollapsePanel from './CollapsePanel';
 
 export default class FriendScreen extends Component {
   state = {
     isModelVisible: false,
+    visibleModal: null,
   };
 
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
   };
+
+  toggleAddFriend = () => {
+    this.setState({visibleModal: 1});
+  };
+
+  closeAddFriend = () => {
+    this.setState({visibleModal: null});
+  };
   render() {
     return (
       <View style={styles.containerFluid}>
+        <Modal
+          backdropColor="#000"
+          backdropOpacity={0.2}
+          onBackdropPress={this.closeAddFriend}
+          isVisible={this.state.visibleModal === 1}>
+          <View style={styles.modalView}>
+            <View style={styles.opacityBox}>
+              <View style={styles.inputView}>
+                <Icons
+                  style={{paddingHorizontal: 20}}
+                  name="mobile-alt"
+                  size={20}
+                  color="#fff"
+                />
+                <TextInput
+                  placeholder="Mobile Number"
+                  placeholderTextColor="#aaa"
+                  keyboardType="number-pad"
+                  style={styles.InputField}
+                />
+              </View>
+              <View style={styles.inputView}>
+                <Icons
+                  style={{paddingHorizontal: 20}}
+                  name="lock"
+                  size={18}
+                  color="#fff"
+                />
+                <TextInput
+                  placeholder="PIN Number"
+                  placeholderTextColor="#aaa"
+                  keyboardType="number-pad"
+                  secureTextEntry={true}
+                  style={styles.InputPin}
+                />
+              </View>
+              <PrimaryButton title="ADD FRIEND" bgColor="#0984e3" />
+            </View>
+          </View>
+        </Modal>
+
         <Header title="Your Friends" />
         <View style={styles.container}>
           <ScrollView style={{flex: 1, height: height}}>
-            <SafeAreaView
-              style={{
-                // padding: 10,
-
-                flex: 1,
-                width: width,
-                alignSelf: 'center',
-              }}>
+            <SafeAreaView style={styles.safeView}>
+              <Button
+                onPress={this.toggleAddFriend}
+                style={styles.addFriendBtn}>
+                <Icons
+                  name="user-plus"
+                  size={20}
+                  color="#fff"
+                  style={{marginHorizontal: 5}}
+                />
+                <Text style={styles.addFriendText}>Add Friend</Text>
+              </Button>
               <FlatList
                 data={friendData}
-                renderItem={this.renderFriend}
+                renderItem={({item}) => {
+                  return (
+                    <CollapsePanel onPress={this.toggleModal} item={item} />
+                  );
+                }}
                 keyExtractor={(item, index) => toString(item)}
               />
             </SafeAreaView>
@@ -56,14 +122,12 @@ export default class FriendScreen extends Component {
               style={{
                 height: 200,
                 backgroundColor: '#fff',
-                // borderRadius: 12,
                 padding: 20,
               }}>
               <View
                 style={{
                   flex: 1,
                   width: '100%',
-                  // backgroundColor: 'red',
                   flexDirection: 'row',
                 }}>
                 <Col style={{flex: 2}}>
@@ -110,70 +174,38 @@ export default class FriendScreen extends Component {
       </View>
     );
   }
-
-  renderFriend = ({item}) => (
-    <TouchableNativeFeedback onPress={this.toggleModal}>
-      <View style={styles.friendContainer}>
-        <Col style={{flex: 2, justifyContent: 'center'}}>
-          <View style={[styles.preBorderImg, {backgroundColor: item.color}]}>
-            <View style={styles.profilePic}>
-              <Image style={styles.profilePicImg} source={item.profilePic} />
-            </View>
-          </View>
-        </Col>
-        <Col
-          style={{
-            flex: 5,
-            paddingLeft: 10,
-            justifyContent: 'center',
-          }}>
-          <Text style={styles.textName}>{item.name}</Text>
-          <Text style={styles.textMobile}>{item.mobile}</Text>
-          <View style={{flexDirection: 'row'}}>
-            <View
-              style={[
-                styles.tag,
-                {
-                  backgroundColor: item.color,
-                },
-              ]}>
-              <Text style={{fontSize: 12, color: '#fff'}}>{item.type}</Text>
-            </View>
-            <View
-              style={[
-                styles.tag,
-                {
-                  backgroundColor: '#00b894',
-                  width: 60,
-                },
-              ]}>
-              <Text style={{fontSize: 12, color: '#fff'}}>Approved</Text>
-            </View>
-          </View>
-        </Col>
-      </View>
-    </TouchableNativeFeedback>
-  );
 }
 
 const friendData = [
   {
     name: 'Wishvantha Perera',
-    mobile: '0771234567 - Dialog',
+    mobile: '0711234567 - Mobitel',
     profilePic: require('../../Assets/profilepicOne.jpg'),
     type: 'Friend',
-    color: '#1B9CFC',
+    color: '#2ed573',
   },
   {
     name: 'Oshini Dissanayake',
-    mobile: '0771234567 - Dialog',
+    mobile: '0771234567 - Mobitel',
     profilePic: require('../../Assets/profilepicOne.jpg'),
     type: 'Family',
-    color: '#6c5ce7',
+    color: '#eccc68',
+  },
+  {
+    name: 'Oshini Dissanayake',
+    mobile: '0771234567 - Mobitel',
+    profilePic: require('../../Assets/profilepicOne.jpg'),
+    type: 'Family',
+    color: '#eccc68',
   },
 ];
 
 const styles = StyleSheet.create({
+  safeView: {
+    flex: 1,
+    width: width,
+    alignSelf: 'center',
+  },
   containerFluid: {
     flex: 1,
   },
@@ -255,5 +287,68 @@ const styles = StyleSheet.create({
   reqText: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  addFriendBtn: {
+    backgroundColor: PrimaryColor,
+    justifyContent: 'center',
+    width: '50%',
+    alignSelf: 'center',
+    marginVertical: 5,
+  },
+
+  addFriendText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  addFriendIcon: {},
+  inputView: {
+    flexDirection: 'row',
+    backgroundColor: '#1B9CFC',
+    marginHorizontal: 20,
+    // marginVertical: 20,
+    marginTop: 20,
+    elevation: 4,
+    alignItems: 'center',
+    borderRadius: 100,
+    overflow: 'hidden',
+    width: '80%',
+    // paddingLeft: 20,
+  },
+  opacityBox: {
+    marginTop: 11,
+    flexDirection: 'column',
+    // position: 'absolute',
+    width: '100%',
+    zIndex: 10000,
+    alignSelf: 'center',
+    // top: '35%',
+    // backgroundColor: 'rgba(0,0,0,0.5)',
+    alignItems: 'center',
+    // padding: 20,
+    paddingVertical: 10,
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+  InputField: {
+    fontSize: 25,
+    backgroundColor: '#fff',
+    paddingLeft: 20,
+    // borderRadius: 100,
+    width: '100%',
+  },
+  InputPin: {
+    fontSize: 25,
+    backgroundColor: '#fff',
+    paddingLeft: 20,
+    // borderRadius: 100,
+    width: '100%',
+  },
+  modalView: {
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 20,
   },
 });

@@ -48,7 +48,7 @@ export default createMaterialBottomTabNavigator(
   },
 
   {
-    initialRouteName: 'FriendSreen',
+    initialRouteName: 'HomeScreen',
     activeColor: '#fff',
     inactiveColor: '#333',
     tintColor: 'red',
