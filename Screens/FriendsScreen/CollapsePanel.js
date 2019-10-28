@@ -156,8 +156,6 @@ export default class CollapsePanel extends Component {
           <View
             style={{
               padding: 20,
-              // justifyContent: 'center',
-              // alignItems: 'center',
             }}>
             <View
               style={{justifyContent: 'space-between', flexDirection: 'row'}}>
@@ -174,7 +172,7 @@ export default class CollapsePanel extends Component {
               <Text style={styles.friendDetails}>Friend Created :</Text>
               <Text style={styles.friendDetails}>2019/10/01</Text>
             </View>
-            {/* <Text>Hello</Text> */}
+
             <Row style={{justifyContent: 'center'}}>
               <Button style={[styles.buttonP, {backgroundColor: primaryColor}]}>
                 <Text style={styles.buttonPText}>Edit</Text>
@@ -203,40 +201,29 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    // flex: 1,
-    // padding: 10,
     color: '#2a2f43',
     fontWeight: 'bold',
   },
   button: {
-    // position: 'absolute',
-    // top: 20,
-    // overflow: 'hidden',
     backgroundColor: 'red',
   },
 
   body: {
     padding: 0,
     paddingTop: 0,
-    // position: 'absolute',
     zIndex: 100,
-    backgroundColor: '#ddd',
+    backgroundColor: '#fff',
     left: 0,
     width: '100%',
-    // height: 200,
   },
   friendContainer: {
     flex: 1,
     backgroundColor: '#fff',
-    // height: 120,
+
     width: '90%',
     alignSelf: 'center',
-    // paddingVertical: 10,
-    // paddingHorizontal: 20,
-    flexDirection: 'row',
 
-    // elevation: 4,
-    // marginBottom: 20,
+    flexDirection: 'row',
   },
   preBorderImg: {
     height: 90,
@@ -309,5 +296,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 20,
     bottom: 20,
+    padding: 5,
   },
 });

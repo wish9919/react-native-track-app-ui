@@ -143,24 +143,6 @@ export default class HomeScreen extends Component {
                 </View>
               </Col>
             </View>
-            {/* <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'flex-end',
-                width: '100%',
-                height: 50,
-                flex: 1,
-                // backgroundColor: 'red',
-              }}>
-              <Button style={styles.modelButton}>
-                <Text style={styles.modelButtonText}>Request</Text>
-              </Button>
-              <Button
-                onPress={this.toggleModal}
-                style={[styles.modelButton, {backgroundColor: '#636e72'}]}>
-                <Text style={styles.modelButtonText}>Cancel</Text>
-              </Button>
-            </View> */}
           </View>
         </Modal>
       </View>

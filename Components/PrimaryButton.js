@@ -6,6 +6,7 @@ export default class PrimaryButton extends Component {
   render() {
     return (
       <Button
+        onPress={this.props.onPress}
         style={[
           this.props.style,
           styles.buttonP,

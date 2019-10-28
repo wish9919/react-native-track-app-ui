@@ -82,7 +82,14 @@ export default class FriendScreen extends Component {
                   style={styles.InputPin}
                 />
               </View>
-              <PrimaryButton title="ADD FRIEND" bgColor="#0984e3" />
+              <View style={{flexDirection: 'row'}}>
+                <PrimaryButton title="Add Friend" bgColor="#0984e3" />
+                <PrimaryButton
+                  onPress={this.closeAddFriend}
+                  title="Cancel"
+                  bgColor="#57606f"
+                />
+              </View>
             </View>
           </View>
         </Modal>
@@ -310,9 +317,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     elevation: 4,
     alignItems: 'center',
-    borderRadius: 100,
+    // borderRadius: 100,
     overflow: 'hidden',
     width: '80%',
+
     // paddingLeft: 20,
   },
   opacityBox: {
@@ -327,7 +335,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // padding: 20,
     paddingVertical: 10,
-    borderRadius: 20,
+    // borderRadius: 20,
     marginBottom: 20,
   },
   InputField: {
