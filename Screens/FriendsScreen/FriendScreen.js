@@ -40,12 +40,69 @@ export default class FriendScreen extends Component {
     this.setState({visibleModal: 1});
   };
 
+  togglePinNumber = () => {
+    this.setState({visibleModal: 2});
+  };
+
   closeAddFriend = () => {
     this.setState({visibleModal: null});
   };
   render() {
     return (
       <View style={styles.containerFluid}>
+        <Modal
+          backdropColor="#000"
+          backdropOpacity={0.2}
+          onBackdropPress={this.closeAddFriend}
+          isVisible={this.state.visibleModal === 2}>
+          <View style={styles.modalView}>
+            <View style={styles.opacityBox}>
+              <View style={styles.inputView}>
+                <Icons
+                  style={{paddingHorizontal: 20}}
+                  name="lock"
+                  size={20}
+                  color="#fff"
+                />
+                <TextInput
+                  placeholder="PIN Number"
+                  placeholderTextColor="#aaa"
+                  keyboardType="number-pad"
+                  style={styles.InputField}
+                />
+              </View>
+              {/* <View style={styles.inputView}>
+                <Icons
+                  style={{paddingHorizontal: 20}}
+                  name="lock"
+                  size={18}
+                  color="#fff"
+                />
+                <TextInput
+                  placeholder="PIN Number"
+                  placeholderTextColor="#aaa"
+                  keyboardType="number-pad"
+                  secureTextEntry={true}
+                  style={styles.InputPin}
+                />
+              </View> */}
+              <View style={{flexDirection: 'row'}}>
+                <PrimaryButton
+                  style={{borderRadius: 20}}
+                  title="Add Friend"
+                  bgColor="#0984e3"
+                />
+                <PrimaryButton
+                  style={{borderRadius: 20}}
+                  onPress={this.closeAddFriend}
+                  title="Cancel"
+                  bgColor="#57606f"
+                />
+              </View>
+            </View>
+          </View>
+        </Modal>
+
         <Modal
           backdropColor="#000"
           backdropOpacity={0.2}
@@ -67,7 +124,7 @@ export default class FriendScreen extends Component {
                   style={styles.InputField}
                 />
               </View>
-              <View style={styles.inputView}>
+              {/* <View style={styles.inputView}>
                 <Icons
                   style={{paddingHorizontal: 20}}
                   name="lock"
@@ -81,10 +138,16 @@ export default class FriendScreen extends Component {
                   secureTextEntry={true}
                   style={styles.InputPin}
                 />
-              </View>
+              </View> */}
               <View style={{flexDirection: 'row'}}>
-                <PrimaryButton title="Add Friend" bgColor="#0984e3" />
                 <PrimaryButton
+                  style={{borderRadius: 20}}
+                  title="Confirm"
+                  bgColor="#0984e3"
+                  onPress={this.togglePinNumber}
+                />
+                <PrimaryButton
+                  style={{borderRadius: 20}}
                   onPress={this.closeAddFriend}
                   title="Cancel"
                   bgColor="#57606f"
@@ -107,7 +170,7 @@ export default class FriendScreen extends Component {
                   color="#fff"
                   style={{marginHorizontal: 5}}
                 />
-                <Text style={styles.addFriendText}>Add Friend</Text>
+                <Text style={[styles.addFriendText]}>Add Friend</Text>
               </Button>
               <FlatList
                 data={friendData}
@@ -301,6 +364,7 @@ const styles = StyleSheet.create({
     width: '50%',
     alignSelf: 'center',
     marginVertical: 5,
+    borderRadius: 20,
   },
 
   addFriendText: {
