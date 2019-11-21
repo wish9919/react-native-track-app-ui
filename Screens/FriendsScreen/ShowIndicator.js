@@ -7,17 +7,17 @@ const ShowIndicator = props => (
   <View style={styles.container}>
     <View style={styles.itemView}>
       <Text>Location</Text>
-      <Switch value={true} />
+      <Switch thumbColor="#0be881" disabled value={true} />
       {/* <Icon style={styles.icon} color="#0be881" name="check" size={25} /> */}
     </View>
     <View style={styles.itemView}>
       <Text>GPS</Text>
-      <Switch value={true} />
+      <Switch thumbColor="#0be881" value={true} />
       {/* <Icon style={styles.icon} color="#0be881" name="check" size={25} /> */}
     </View>
     <View style={styles.itemView}>
       <Text>Emergency</Text>
-      <Switch value={true} />
+      <Switch thumbColor="#0be881" value={true} />
       {/* <Icon style={styles.icon} color="#ff3f34" name="close" size={25} /> */}
     </View>
   </View>
