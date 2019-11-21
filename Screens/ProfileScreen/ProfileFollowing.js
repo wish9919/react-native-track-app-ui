@@ -17,7 +17,7 @@ import {
 import {Col, Row, Button, Switch} from 'native-base';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ShowIndicator from '../FriendsScreen/ShowIndicator';
+import ToggleIndicator from './ToggleIndigator';
 
 const primaryColor = '#0984e3';
 const dangerColor = '#ff4757';
@@ -155,7 +155,7 @@ export default class ProfileFollowing extends Component {
             style={{
               padding: 20,
             }}>
-            <ShowIndicator />
+            <ToggleIndicator />
             <View
               style={{justifyContent: 'space-between', flexDirection: 'row'}}>
               <Text style={styles.friendDetails}>Last Checked :</Text>
