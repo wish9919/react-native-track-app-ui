@@ -40,11 +40,7 @@ const AppContainer = createAppContainer(StackNavigator);
 const App = () => {
   return (
     <View style={styles.container}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      />
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
       <AppContainer />
     </View>
   );

@@ -5,7 +5,7 @@ export default class ProfileScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.profileView}>
           <View style={[styles.preBorderImg, {backgroundColor: '#fff'}]}>
             <View style={styles.profilePic}>
               <Image
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  profileView: {},
   preBorderImg: {
     height: 200,
     width: 200,

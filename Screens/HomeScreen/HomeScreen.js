@@ -24,6 +24,8 @@ import {Button, Col} from 'native-base';
 import MapView from 'react-native-maps';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import MdIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import SOS from '../../Components/SOS';
 
 const {width, height} = Dimensions.get('window');
 
@@ -50,6 +52,7 @@ export default class HomeScreen extends Component {
           }}
           showsUserLocation={true}
         />
+
         <SwitchSelector
           options={options}
           initial={0}
@@ -93,6 +96,7 @@ export default class HomeScreen extends Component {
             <Text style={styles.findButtonText}>FIND NOW</Text>
           </Button>
         </View>
+        <SOS onPress={() => alert('SOS')} />
         <Modal
           backdropOpacity={0.4}
           onBackdropPress={this.toggleModal}
@@ -153,6 +157,7 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: 'relative',
   },
   mapView: {
     width: width,
@@ -267,5 +272,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: '100%',
     height: '110%',
+  },
+  sos: {
+    position: 'absolute',
+    bottom: 50,
+    right: 20,
+    backgroundColor: '#ff3f34',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
   },
 });
