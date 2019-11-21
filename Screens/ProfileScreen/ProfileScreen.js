@@ -36,7 +36,10 @@ export default class ProfileScreen extends Component {
           </View>
           <Text style={styles.mobileNumber}>0711234567</Text>
         </View>
-        <Text style={{fontSize: 16, marginTop: 20}}>Following Friend</Text>
+        <Text
+          style={{fontSize: 22, marginTop: 20, marginLeft: 20, color: '#555'}}>
+          Following Friends
+        </Text>
         <SafeAreaView style={{width: '100%', marginTop: 10}}>
           <ProfileFollowing />
         </SafeAreaView>
@@ -48,7 +51,7 @@ export default class ProfileScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    // padding: 20,
   },
   profileView: {},
   preBorderImg: {

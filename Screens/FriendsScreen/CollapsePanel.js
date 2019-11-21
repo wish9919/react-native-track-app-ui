@@ -17,6 +17,7 @@ import {
 import {Col, Row, Button} from 'native-base';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ShowIndicator from './ShowIndicator';
 
 const primaryColor = '#0984e3';
 const dangerColor = '#ff4757';
@@ -65,7 +66,7 @@ export default class CollapsePanel extends Component {
         delay: 0,
       }).start();
       Animated.timing(this.state.animatedValue, {
-        toValue: this.state.expanded ? 0 : 190,
+        toValue: this.state.expanded ? 0 : 270,
         duration: 100, // in milliseconds, default is 500
         easing: Easing.bounce, // Easing function, default is Easing.inOut(Easing.ease)
         delay: 0,
@@ -157,6 +158,7 @@ export default class CollapsePanel extends Component {
             style={{
               padding: 20,
             }}>
+            <ShowIndicator />
             <View
               style={{justifyContent: 'space-between', flexDirection: 'row'}}>
               <Text style={styles.friendDetails}>Last updated :</Text>

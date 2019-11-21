@@ -13,12 +13,13 @@ export default SOS;
 const styles = StyleSheet.create({
   sos: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 30,
     right: 20,
     backgroundColor: '#ff3f34',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    width: 60,
+    height: 60,
     borderRadius: 100,
   },
 });

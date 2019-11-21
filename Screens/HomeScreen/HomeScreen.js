@@ -26,6 +26,8 @@ import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MdIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SOS from '../../Components/SOS';
+import BottomModal from './BottomModal';
+import SosModal from './SosModal';
 
 const {width, height} = Dimensions.get('window');
 
@@ -34,16 +36,22 @@ const fontSize = Dimensions.get('window').fontScale;
 export default class HomeScreen extends Component {
   state = {
     isModelVisible: false,
+    isSosModal: false,
   };
 
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
   };
+
+  toggleSosModal = () => {
+    this.setState({isSosModal: !this.state.isSosModal});
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <MapView
-          style={{height: height, width: width}}
+          style={styles.mapView}
           region={{
             latitude: 7.8731,
             longitude: 80.7718,
@@ -96,59 +104,17 @@ export default class HomeScreen extends Component {
             <Text style={styles.findButtonText}>FIND NOW</Text>
           </Button>
         </View>
-        <SOS onPress={() => alert('SOS')} />
-        <Modal
-          backdropOpacity={0.4}
-          onBackdropPress={this.toggleModal}
-          style={styles.bottomModal}
-          isVisible={this.state.isModalVisible}>
-          <View
-            style={{
-              height: height / 6,
-              backgroundColor: '#fff',
-              // borderRadius: 12,
-              padding: 20,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                width: '100%',
-                // backgroundColor: 'red',
-                flexDirection: 'row',
-              }}>
-              <Col style={{flex: 2}}>
-                <View
-                  style={[styles.preBorderImg, {backgroundColor: '#0984e3'}]}>
-                  <View style={styles.profilePic}>
-                    <Image
-                      style={styles.profilePicImg}
-                      source={require('../../Assets/profilepicOne.jpg')}
-                    />
-                  </View>
-                </View>
-              </Col>
-              <Col style={{flex: 5}}>
-                <View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
-                    <Text style={styles.reqText}>Wishvantha Perera</Text>
-                    <Text style={{color: '#aaa'}}>0 seconds ago</Text>
-                  </View>
-                  <Text style={{fontSize: 14, color: '#aaa'}}>
-                    57A, 1/1 Kirulupana Station Road, 3rd Ln, Nugegoda 11222
-                  </Text>
-                  <Text style={{fontSize: 17, fontWeight: 'bold'}}>
-                    0771234567
-                  </Text>
-                </View>
-              </Col>
-            </View>
-          </View>
-        </Modal>
+        <SOS onPress={this.toggleSosModal} />
+        <BottomModal
+          toggleModal={this.toggleModal}
+          visible={this.state.isModalVisible}
+        />
+        <SosModal
+          onPressSend={() => alert('Send Alert')}
+          onPressCancel={this.toggleSosModal}
+          toggleModal={this.toggleSosModal}
+          visible={this.state.isSosModal}
+        />
       </View>
     );
   }
@@ -159,11 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
   },
-  mapView: {
-    width: width,
-    position: 'relative',
-    zIndex: -10000,
-  },
+  mapView: {height: height, width: width},
   inputView: {
     flexDirection: 'row',
     backgroundColor: '#1B9CFC',
@@ -224,27 +186,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     width: '50%',
   },
-  bottomModal: {
-    justifyContent: 'flex-end',
-    margin: 0,
-  },
-  modelButton: {
-    backgroundColor: '#00b894',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 10,
-  },
-  modelButtonText: {
-    color: '#fff',
-    fontSize: 22,
-    alignSelf: 'center',
-  },
-  reqText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
+
   tag: {
     width: 50,
     justifyContent: 'center',
@@ -252,35 +194,5 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 5,
     marginLeft: 5,
-  },
-  preBorderImg: {
-    height: 90,
-    width: 90,
-    borderRadius: 100,
-    overflow: 'hidden',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profilePic: {
-    backgroundColor: '#fff',
-    width: '90%',
-    height: '90%',
-    borderRadius: 100,
-    overflow: 'hidden',
-  },
-  profilePicImg: {
-    resizeMode: 'contain',
-    width: '100%',
-    height: '110%',
-  },
-  sos: {
-    position: 'absolute',
-    bottom: 50,
-    right: 20,
-    backgroundColor: '#ff3f34',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 100,
   },
 });
